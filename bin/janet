@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Getopt::Long qw(:config require_order);
+use Module::Load;
+
+sub show_help {
+    print "janet <subcommand> [options]\n";
+    # -h, --help Show this message
+    exit 0;
+}
+
+GetOptions(
+    'help|h' => \&show_help
+);
+
+(my $command = shift) or show_help;
+
+eval {
+    load "App::Janet::Command::$command"; 1;
+}
+or do {
+   print STDERR "Invalid command. Use --help for more information.\n";
+   exit 1;
+};
+
+('App::Janet::Command::' . $command)->can('process')->(@ARGV);
