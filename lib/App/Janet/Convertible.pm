@@ -3,6 +3,8 @@ package App::Janet::Convertible;
 use Moo::Role;
 use Template::Liquid;
 
+use App::Janet::Tag::Highlight;
+
 sub read_yaml {
     my ($self, $base, $name, $opts) = @_;
 
