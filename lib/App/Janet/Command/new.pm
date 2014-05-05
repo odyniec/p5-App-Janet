@@ -1,5 +1,8 @@
 package App::Janet::Command::new;
 
+use strict;
+use warnings;
+
 use Cwd;
 use File::Path qw(make_path);
 use File::Spec;

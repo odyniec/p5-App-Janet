@@ -19,11 +19,12 @@ GetOptions(
 (my $command = shift) or show_help;
 
 eval {
-    load "App::Janet::Command::$command"; 1;
+    load "App::Janet::Command::$command";
+    1;
 }
 or do {
-   print STDERR "Invalid command. Use --help for more information.\n";
-   exit 1;
+    print STDERR "Invalid command. Use --help for more information.\n";
+    exit 1;
 };
 
-('App::Janet::Command::' . $command)->can('process')->(@ARGV);
+('App::Janet::Command::' . $command)->process(@ARGV);
