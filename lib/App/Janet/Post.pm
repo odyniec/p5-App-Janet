@@ -58,4 +58,10 @@ sub render {
     $self->do_layout($payload, $layouts);
 }
 
+sub destination {
+    my ($self) = @_;
+
+    '_site/post.html'; # FIXME: duh
+}
+
 1;
