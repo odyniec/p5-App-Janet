@@ -54,6 +54,8 @@ sub process {
     $self->read();
     $self->generate();
     $self->render();
+    $self->cleanup();
+    $self->write();
 }
 
 sub reset {
@@ -123,8 +125,27 @@ sub render {
     }
 }
 
+sub cleanup {
+    my ($self) = @_;
+}
+
+sub write {
+    my ($self) = @_;
+
+    for my $item (@{$self->each_site_file}) {
+        $item->write(); # FIXME: dest
+    }
+}
+
 sub site_payload {
     return {};
+}
+
+sub each_site_file {
+    my ($self) = @_;
+
+    # FIXME: static_files, documents
+    return [ @{$self->posts}, @{$self->pages} ];
 }
 
 1;
