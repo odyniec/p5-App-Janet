@@ -9,6 +9,11 @@ use Moo;
 
 use App::Janet::Post;
 
+has 'converters' => (
+    is => 'rw',
+    default => sub { [] }
+);
+
 has 'generators' => (
     is => 'rw',
     default => sub { [] }
@@ -28,6 +33,19 @@ has 'pages' => (
     is => 'rw',
     default => sub { [] }
 );
+
+sub BUILD {
+    my ($self) = @_;
+
+    require App::Janet::Converter::Markdown;
+
+    # FIXME: Do this automatically for all ::Converters?
+    $self->converters([
+        App::Janet::Converter::Markdown->new
+    ]);
+
+    return $self;
+}
 
 sub process {
     my ($self) = @_;
