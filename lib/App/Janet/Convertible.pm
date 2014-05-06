@@ -29,17 +29,44 @@ sub do_layout {
     my $info = {};
 
     $self->content($self->render_liquid($self->content, $payload, $info));
-    $self->transform;   
+    $self->transform;
+
+    $self->output($self->content);
 }
 
 sub transform {
     my ($self) = @_;
+
+    $self->content($self->converter->convert($self->content));
+}
+
+sub converter {
+    my ($self) = @_;
+
+    $self->{_converter} or do {
+        for my $converter (@{$self->site->converters}) {
+            if ($converter->matches($self->ext)) {
+                return $self->{_converter} = $converter;
+            }
+        }
+    };
 }
 
 sub render_liquid {
     my ($self, $content, $payload, $info, $path) = @_;
 
     return Template::Liquid->parse($content)->render(%$payload, %$info);
+}
+
+sub write {
+    # FIXME: $dest
+    my ($self) = @_;
+
+    my $path = $self->destination();
+
+    open my $f, '>', $path;
+    print $f $self->output;
+    close $f;
 }
 
 1;
