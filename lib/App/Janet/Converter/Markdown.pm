@@ -6,6 +6,13 @@ use warnings;
 use Moo;
 use Text::Markdown qw(markdown);
 
+sub matches {
+    my ($self, $ext) = @_;
+
+    # FIXME
+    return $ext =~ /^\.markdown/;
+}
+
 sub convert {
     my ($self, $content) = @_;
 
