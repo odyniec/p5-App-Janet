@@ -3,6 +3,7 @@ package App::Janet::Command::build;
 use strict;
 use warnings;
 
+use Getopt::Long qw(GetOptionsFromArray);
 use Moo;
 
 use App::Janet::Site;
@@ -16,15 +17,18 @@ has 'site' => (
 my $site;
 
 sub process {
-    my ($class) = @_;
+    my ($class, $options, @args) = @_;
+    
+    GetOptionsFromArray(\@args,
+    );
 
-    $site = App::Janet::Site->new();
+    $site = App::Janet::Site->new($options);
 
-    $class->build($site);
+    $class->build($site, $options);
 }
 
 sub build {
-    my ($class, $site) = @_;
+    my ($class, $site, $options) = @_;
 
     $class->process_site($site);
 }
