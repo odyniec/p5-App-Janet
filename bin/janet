@@ -12,7 +12,14 @@ sub show_help {
     exit 0;
 }
 
+my $options = {
+    'source'        => '.',
+    'destination'   => '_site'
+};
+
 GetOptions(
+    'source|s' => \$options->{'source'},
+    'destination|s' => \$options->{'destination'},
     'help|h' => \&show_help
 );
 
@@ -27,4 +34,4 @@ or do {
     exit 1;
 };
 
-('App::Janet::Command::' . $command)->process(@ARGV);
+('App::Janet::Command::' . $command)->process($options, @ARGV);
