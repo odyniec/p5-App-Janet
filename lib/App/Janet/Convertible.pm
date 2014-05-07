@@ -1,5 +1,7 @@
 package App::Janet::Convertible;
 
+use File::Basename;
+use File::Path qw(make_path);
 use Moo::Role;
 use Template::Liquid;
 
@@ -59,10 +61,11 @@ sub render_liquid {
 }
 
 sub write {
-    # FIXME: $dest
-    my ($self) = @_;
+    my ($self, $dest) = @_;
 
-    my $path = $self->destination();
+    my $path = $self->destination($dest);
+
+    make_path(dirname($path));
 
     open my $f, '>', $path;
     print $f $self->output;
