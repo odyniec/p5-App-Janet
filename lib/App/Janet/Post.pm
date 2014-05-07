@@ -33,6 +33,8 @@ has 'ext' => (
     is => 'rw'
 );
 
+has 'slug' => ( is => 'rw' );
+
 sub BUILD {
     my ($self) = @_;
 
@@ -47,6 +49,7 @@ sub process {
 
     my ($cats, $date, $slug, $ext) = ($self->name =~ $MATCHER);
 
+    $self->slug($slug);
     $self->ext($ext);
 }
 
