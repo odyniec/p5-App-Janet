@@ -13,6 +13,12 @@ sub matches {
     return $ext =~ /^\.markdown/;
 }
 
+sub output_ext {
+    my ($self, $ext) = @_;
+
+    return '.html';
+}
+
 sub convert {
     my ($self, $content) = @_;
 
