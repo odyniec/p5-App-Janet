@@ -4,10 +4,17 @@ use strict;
 use warnings;
 
 use File::Find;
-use File::Spec::Functions;
+use File::Spec::Functions qw(catfile rel2abs);
 use Moo;
 
 use App::Janet::Post;
+
+has 'config' => (
+    is => 'rw'
+);
+
+has 'source' => ( is => 'rw' );
+has 'dest' => ( is => 'rw' );
 
 has 'converters' => (
     is => 'rw',
@@ -35,6 +42,19 @@ has 'pages' => (
 );
 
 sub BUILD {
+    my ($self, $config) = @_;
+
+    $self->config($config);
+
+    $self->source(rel2abs($config->{'source'}));
+    $self->dest(rel2abs($config->{'destination'}));
+
+    $self->setup();
+
+    return $self;
+}
+
+sub setup {
     my ($self) = @_;
 
     require App::Janet::Converter::Markdown;
@@ -42,9 +62,7 @@ sub BUILD {
     # FIXME: Do this automatically for all ::Converters?
     $self->converters([
         App::Janet::Converter::Markdown->new
-    ]);
-
-    return $self;
+    ]);    
 }
 
 sub process {
