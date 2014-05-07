@@ -42,6 +42,12 @@ sub transform {
     $self->content($self->converter->convert($self->content));
 }
 
+sub output_ext {
+    my ($self) = @_;
+
+    return $self->converter->output_ext($self->ext);
+}
+
 sub converter {
     my ($self) = @_;
 
