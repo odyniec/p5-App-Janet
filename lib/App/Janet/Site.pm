@@ -151,7 +151,7 @@ sub write {
     my ($self) = @_;
 
     for my $item (@{$self->each_site_file}) {
-        $item->write(); # FIXME: dest
+        $item->write($self->dest);
     }
 }
 
