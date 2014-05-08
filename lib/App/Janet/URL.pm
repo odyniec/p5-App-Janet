@@ -45,8 +45,7 @@ sub sanitize_url {
 sub escape_path {
     my ($class, $path) = @_;
 
-    # FIXME: borrowed from Ruby code, not sure if fully compatible with Perl
-    return uri_escape($path, '^a-zA-Z\d\-._~');#!$&\'()*+,;=:@\/');
+    return uri_escape($path, '^a-zA-Z\d\-._~!$&\'()*+,;=:#@/');
 }
 
 sub unescape_path {
