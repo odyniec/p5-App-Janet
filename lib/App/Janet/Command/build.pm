@@ -22,7 +22,9 @@ sub process {
     GetOptionsFromArray(\@args,
     );
 
-    $site = App::Janet::Site->new($options);
+    my $config = $class->configuration_from_options($options);
+
+    $site = App::Janet::Site->new(%$config);
 
     $class->build($site, $options);
 }
