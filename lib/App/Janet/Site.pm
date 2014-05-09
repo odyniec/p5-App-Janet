@@ -16,6 +16,8 @@ has 'config' => (
 has 'source' => ( is => 'rw' );
 has 'dest' => ( is => 'rw' );
 
+has 'permalink_style' => ( is => 'rw' );
+
 has 'converters' => (
     is => 'rw',
     default => sub { [] }
@@ -48,6 +50,7 @@ sub BUILD {
 
     $self->source(rel2abs($config->{'source'}));
     $self->dest(rel2abs($config->{'destination'}));
+    $self->permalink_style($config->{'permalink'});
 
     $self->setup();
 
