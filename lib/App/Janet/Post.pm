@@ -64,8 +64,21 @@ sub permalink {
 sub template {
     my ($self) = @_;
 
-    # FIXME: Add other templates
-    '/:categories/:year/:month/:day/:title/';
+    if ($self->site->permalink_style eq 'pretty') {
+        return '/:categories/:year/:month/:day/:title/';
+    }
+    elsif ($self->site->permalink_style eq 'none') {
+        return '/:categories/:title.html';
+    }
+    elsif ($self->site->permalink_style eq 'date') {
+        return '/:categories/:year/:month/:day/:title.html';
+    }
+    elsif ($self->site->permalink_style eq 'ordinal') {
+        return '/:categories/:year/:y_day/:title.html';
+    }
+    else {
+        return $self->site->permalink_style;
+    }
 }
 
 sub url {
