@@ -18,8 +18,8 @@ my $options = {
 };
 
 GetOptions(
-    'source|s' => \$options->{'source'},
-    'destination|s' => \$options->{'destination'},
+    'source|s=s' => \$options->{'source'},
+    'destination|d=s' => \$options->{'destination'},
     'help|h' => \&show_help
 );
 
