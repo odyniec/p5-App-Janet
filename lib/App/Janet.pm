@@ -18,10 +18,4 @@ sub configuration {
     return $config;
 }
 
-sub read_config_files {
-    my ($self) = @_;
-
-    # TODO: Oh you know what to do
-}
-
 1;
