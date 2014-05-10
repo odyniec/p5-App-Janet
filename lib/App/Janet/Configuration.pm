@@ -3,6 +3,7 @@ package App::Janet::Configuration;
 use Cwd;
 use File::Spec::Functions;
 use Hash::Merge::Simple qw(merge);
+use Module::Load;
 
 my %DEFAULTS = (
     source      => getcwd(),
@@ -17,6 +18,25 @@ sub new {
     $config = merge { %DEFAULTS }, $config || {};
 
     return bless $config, $class;
+}
+
+sub safe_load_file {
+    my ($filename) = @_;
+
+    (my $ext) = ($filename =~ /(\.[^.]+)$/);
+
+    if ($ext eq '.toml') {
+        load 'TOML';
+        return TOML::from_toml($filename);
+
+    }
+    elsif ($ext =~ /\.y(a)?ml/) {
+        load 'YAML';
+        return YAML::LoadFile($filename);
+    }
+    else {
+        # TODO: Handle error
+    }
 }
 
 sub source {
@@ -39,10 +59,30 @@ sub config_files {
     return $config_files;
 }
 
-sub read_config_files {
-    my ($self) = @_;
+sub read_config_file {
+    my ($file) = @_;
 
-    # TODO: Oh you know what to do
+    my $next_config = safe_load_file($file);
+
+    if (ref($next_config) eq 'HASH') {
+        return $next_config;
+    }
+    else {
+        # TODO: Handle errors
+    }
+}
+
+sub read_config_files {
+    my ($self, $files) = @_;
+
+    for my $config_file (@$files) {
+        my $new_config = read_config_file($config_file);
+        my $new_self = merge $self, $new_config;
+        @{$self}{keys %$new_self} = values %$new_self;
+        # TODO: Handle errors
+    }
+
+    # TODO: configuration.fix_common_issues.backwards_compatibilize?
 }
 
 1;
