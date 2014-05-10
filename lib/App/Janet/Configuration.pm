@@ -28,7 +28,6 @@ sub safe_load_file {
     if ($ext eq '.toml') {
         load 'TOML';
         return TOML::from_toml($filename);
-
     }
     elsif ($ext =~ /\.y(a)?ml/) {
         load 'YAML';

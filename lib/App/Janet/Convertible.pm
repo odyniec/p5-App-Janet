@@ -4,6 +4,7 @@ use File::Basename;
 use File::Path qw(make_path);
 use Moo::Role;
 use Template::Liquid;
+use YAML;
 
 use App::Janet::Tag::Highlight;
 
@@ -21,7 +22,7 @@ sub read_yaml {
 
     if ($self->content =~ /^(---\s*\n.*?\n)((---|\.\.\.)\s*\n)/s) {
         $self->content($');
-        # $self->data() # FIXME: Load YAML from $1
+        $self->data(YAML::Load($1));
     }
 }
 
