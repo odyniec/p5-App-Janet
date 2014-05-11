@@ -34,7 +34,7 @@ sub do_layout {
 
     my $info = {};
 
-    $self->content($self->render_liquid($self->content, $payload, $info));
+    $self->content(render_liquid($self->content, $payload, $info));
     $self->transform;
 
     $self->output($self->content);
@@ -65,7 +65,7 @@ sub converter {
 }
 
 sub render_liquid {
-    my ($self, $content, $payload, $info, $path) = @_;
+    my ($content, $payload, $info, $path) = @_;
 
     return Template::Liquid->parse($content)->render(%$payload, %$info);
 }
