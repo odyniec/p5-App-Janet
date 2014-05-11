@@ -3,6 +3,7 @@ package App::Janet::Post;
 use strict;
 use warnings;
 
+use Hash::Merge::Simple qw(merge);
 use Moo;
 use POSIX qw(strftime);
 use URI::Escape;
@@ -116,7 +117,11 @@ sub url_placeholders {
 sub render {
     my ($self, $layouts, $site_payload) = @_;
 
-    my $payload = $site_payload;
+    # FIXME: This is really really incomplete
+    my $payload = merge {
+        site => {},
+        page => { date => $self->date },
+    }, $site_payload;
 
     $self->do_layout($payload, $layouts);
 }
