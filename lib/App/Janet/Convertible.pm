@@ -12,7 +12,7 @@ use App::Janet::Tag::Highlight;
 sub read_yaml {
     my ($self, $base, $name, $opts) = @_;
 
-    $name = catfile($base, $name);
+    $name = catfile($base, $name) if defined $base;
 
     {
         undef $/;
