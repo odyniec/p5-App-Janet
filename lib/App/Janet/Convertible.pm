@@ -2,6 +2,7 @@ package App::Janet::Convertible;
 
 use File::Basename;
 use File::Path qw(make_path);
+use File::Spec::Functions;
 use Moo::Role;
 use Template::Liquid;
 use YAML;
@@ -10,6 +11,8 @@ use App::Janet::Tag::Highlight;
 
 sub read_yaml {
     my ($self, $base, $name, $opts) = @_;
+
+    $name = catfile($base, $name);
 
     {
         undef $/;
