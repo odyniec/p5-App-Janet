@@ -7,6 +7,7 @@ use File::Find;
 use File::Spec::Functions qw(catfile rel2abs);
 use Moo;
 
+use App::Janet::LayoutReader;
 use App::Janet::Post;
 
 has 'config' => (
@@ -65,7 +66,7 @@ sub setup {
     # FIXME: Do this automatically for all ::Converters?
     $self->converters([
         App::Janet::Converter::Markdown->new
-    ]);    
+    ]);
 }
 
 sub process {
@@ -86,6 +87,7 @@ sub reset {
 sub read {
     my ($self) = @_;
 
+    $self->layouts(App::Janet::LayoutReader->new(site => $self)->read);
     $self->read_directories();
 }
 
