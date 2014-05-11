@@ -121,23 +121,7 @@ sub render {
 sub destination {
     my ($self, $dest) = @_;
 
-    # FIXME: Move elsewhere
-    sub sanitized_path {
-        my ($base_directory, $questionable_path) = @_;
-
-        use File::Spec::Functions qw(catfile rel2abs);
-
-        my $clean_path = rel2abs($questionable_path, '/');
-        $clean_path =~ s{^\w\:/}{/};
-
-        if (index($clean_path, $base_directory) != 0) {
-            $clean_path = catfile($base_directory, $clean_path);
-        }
-
-        return $clean_path;
-    }
-
-    my $path = sanitized_path($dest,
+    my $path = App::Janet::sanitized_path($dest,
         App::Janet::URL->unescape_path($self->url));
     $path = catfile($path, "index.html") if $path !~ /\.html$/;
     return $path;

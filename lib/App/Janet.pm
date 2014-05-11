@@ -18,4 +18,19 @@ sub configuration {
     return $config;
 }
 
+sub sanitized_path {
+    my ($base_directory, $questionable_path) = @_;
+
+    use File::Spec::Functions qw(catfile rel2abs);
+
+    my $clean_path = rel2abs($questionable_path, '/');
+    $clean_path =~ s{^\w\:/}{/};
+
+    if (index($clean_path, $base_directory) != 0) {
+        $clean_path = catfile($base_directory, $clean_path);
+    }
+
+    return $clean_path;
+}
+
 1;
