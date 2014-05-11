@@ -8,6 +8,7 @@ use Module::Load;
 my %DEFAULTS = (
     source      => getcwd(),
     destination => catdir(getcwd, '_site'),
+    layouts     => '_layouts',
 
     permalink   => 'date'
 );
