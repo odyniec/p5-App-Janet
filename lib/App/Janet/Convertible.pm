@@ -3,10 +3,12 @@ package App::Janet::Convertible;
 use File::Basename;
 use File::Path qw(make_path);
 use File::Spec::Functions;
+use Hash::Merge::Simple qw(merge);
 use Moo::Role;
 use Template::Liquid;
 use YAML;
 
+use App::Janet::Filters;
 use App::Janet::Tag::Highlight;
 
 sub read_yaml {
@@ -29,6 +31,30 @@ sub read_yaml {
     }
 }
 
+sub render_all_layouts {
+    my ($self, $layouts, $payload, $info) = @_;
+
+    my $layout = $layouts->{$self->data->{'layout'}};
+    my %used = ( $layout->name => 1 );
+
+    while ($layout) {
+        my $payload = merge $payload,
+            { 'content' => $self->output, 'page' => $layout->data };
+
+        $self->output(render_liquid($layout->content, $payload, $info,
+            catfile($self->site->config->{'layouts'}, $layout->name)));
+
+        if ($layout = $layouts->{$layout->data->{'layout'} || ''}) {
+            if (exists $used{$layout->name}) {
+                $layout = undef;
+            }
+            else {
+                $used{$layout->name} = 1;
+            }
+        }
+    }
+}
+
 sub do_layout {
     my ($self, $payload, $layouts) = @_;
 
@@ -38,6 +64,8 @@ sub do_layout {
     $self->transform;
 
     $self->output($self->content);
+
+    $self->render_all_layouts($layouts, $payload, $info);
 }
 
 sub transform {
