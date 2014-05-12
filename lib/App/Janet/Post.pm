@@ -120,7 +120,7 @@ sub render {
     # FIXME: This is really really incomplete
     my $payload = merge {
         site => {},
-        page => { date => $self->date },
+        page => $self->to_liquid,
     }, $site_payload;
 
     $self->do_layout($payload, $layouts);
