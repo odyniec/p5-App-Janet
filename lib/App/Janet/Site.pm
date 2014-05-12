@@ -64,10 +64,12 @@ sub setup {
     my ($self) = @_;
 
     require App::Janet::Converter::Markdown;
+    require App::Janet::Converter::Identity;
 
     # FIXME: Do this automatically for all ::Converters?
     $self->converters([
-        App::Janet::Converter::Markdown->new
+        App::Janet::Converter::Markdown->new,
+        App::Janet::Converter::Identity->new
     ]);
 }
 
