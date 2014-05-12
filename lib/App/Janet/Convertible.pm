@@ -92,6 +92,15 @@ sub converter {
     };
 }
 
+sub to_liquid {
+    my ($self) = @_;
+
+    # TODO: Respect ATTRIBUTES_FOR_LIQUID
+    return { map { $_ => $self->$_ }
+        keys(%{'Moo'->_constructor_maker_for(ref $self)
+            ->all_attribute_specs}) };
+}
+
 sub render_liquid {
     my ($content, $payload, $info, $path) = @_;
 
