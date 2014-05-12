@@ -3,11 +3,13 @@ package App::Janet::Site;
 use strict;
 use warnings;
 
+use Cwd;
 use File::Find;
 use File::Spec::Functions qw(catfile rel2abs);
 use Moo;
 
 use App::Janet::LayoutReader;
+use App::Janet::Page;
 use App::Janet::Post;
 
 has 'config' => (
@@ -94,9 +96,34 @@ sub read {
 sub read_directories {
     my ($self, $dir) = @_;
 
-    $dir //= '';
+    $dir //= '.';
 
-    $self->read_posts($dir)
+    my $base = catfile($self->source, $dir);
+    
+    my $prev_path = Cwd::getcwd;
+    chdir($base);
+
+    for (glob("*")) {
+        # FIXME: Implement entry filters
+        next if /^_|^\./;
+
+        my $f_abs = catfile($base, $_);
+
+        if (-d $f_abs) {
+            my $f_rel = catfile($dir, $_);
+
+            $self->read_directories($f_rel)
+                unless $self->dest =~ qr( ^ $f_abs /? $ )x;
+        }
+        elsif (has_yaml_header($f_abs)) {
+            my $page = App::Janet::Page->new(site => $self, name => $_);
+            push @{$self->pages}, $page;
+        }
+    };
+
+    chdir($prev_path);
+
+    $self->read_posts($dir);
 }
 
 sub read_posts {
@@ -169,6 +196,17 @@ sub each_site_file {
 
     # FIXME: static_files, documents
     return [ @{$self->posts}, @{$self->pages} ];
+}
+
+sub has_yaml_header {
+    my ($file) = @_;
+
+    # FIXME: Handle errors
+    open my $f, '<', $file;
+    CORE::read $f, my $buf, 5;
+    close $f;
+
+    return $buf =~ /^---\r?\n/;
 }
 
 1;
