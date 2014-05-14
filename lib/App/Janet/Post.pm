@@ -42,6 +42,22 @@ has 'date' => ( is => 'rw' );
 
 has 'slug' => ( is => 'rw' );
 
+sub EXCERPT_ATTRIBUTES_FOR_LIQUID {
+    my ($self) = @_;
+
+    # FIXME
+    #qw( title url dir date id categories next previous tags path );
+    qw( title url date );
+}
+
+sub ATTRIBUTES_FOR_LIQUID {
+    my ($self) = @_;
+
+    # FIXME
+    #( $self->EXCERPT_ATTRIBUTES_FOR_LIQUID, qw( content excerpt ) );
+    ( $self->EXCERPT_ATTRIBUTES_FOR_LIQUID, qw( content ) );
+}
+
 sub title {
     my ($self) = @_;
 
