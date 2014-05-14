@@ -42,6 +42,18 @@ has 'date' => ( is => 'rw' );
 
 has 'slug' => ( is => 'rw' );
 
+sub title {
+    my ($self) = @_;
+
+    return $self->data->{'title'} || $self->titleized_slug;
+}
+
+sub titleized_slug {
+    my ($self) = @_;
+
+    return join(' ', map { lcfirst $_ } split('-', $self->slug));
+}
+
 sub BUILD {
     my ($self) = @_;
 
