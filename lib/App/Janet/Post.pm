@@ -64,6 +64,11 @@ sub BUILD {
     $self->process($self->name);
     $self->read_yaml(undef, $self->name);
 
+    if (exists $self->data->{'date'}) {
+        $self->date(Time::Piece->strptime($self->data->{'date'},
+            '%Y-%m-%d %H:%M:%S %z'));
+    }
+
     return $self;
 }
 
@@ -84,7 +89,7 @@ sub process {
 
     my ($cats, $date, $slug, $ext) = ($self->name =~ $MATCHER);
 
-    $self->date($date);
+    $self->date(Time::Piece->strptime($date, '%Y-%m-%d'));
     $self->slug($slug);
     $self->ext($ext);
 }
