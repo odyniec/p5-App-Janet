@@ -58,6 +58,15 @@ sub ATTRIBUTES_FOR_LIQUID {
     ( $self->EXCERPT_ATTRIBUTES_FOR_LIQUID, qw( content ) );
 }
 
+sub BUILD {
+    my ($self) = @_;
+
+    $self->process($self->name);
+    $self->read_yaml(undef, $self->name);
+
+    return $self;
+}
+
 sub title {
     my ($self) = @_;
 
@@ -68,15 +77,6 @@ sub titleized_slug {
     my ($self) = @_;
 
     return join(' ', map { lcfirst $_ } split('-', $self->slug));
-}
-
-sub BUILD {
-    my ($self) = @_;
-
-    $self->process($self->name);
-    $self->read_yaml(undef, $self->name);
-
-    return $self;
 }
 
 sub process {
