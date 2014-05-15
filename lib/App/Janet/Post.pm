@@ -134,15 +134,15 @@ sub url_placeholders {
     my @time = localtime;
 
     return {
-        'year'          => strftime("%Y", @time),
-        'month'         => strftime("%m", @time),
-        'day'           => strftime("%d", @time),
+        'year'          => $self->date->strftime("%Y"),
+        'month'         => $self->date->strftime("%m"),
+        'day'           => $self->date->strftime("%d"),
         'title'         => $self->slug,
         # TODO: i_day
         # TODO: i_month
         'categories'    => '', # FIXME
-        'short_month'   => strftime("%b", @time),
-        'y_day'         => strftime("%j", @time),
+        'short_month'   => $self->date->strftime("%b"),
+        'y_day'         => $self->date->strftime("%j"),
         'output_ext'    => $self->output_ext
     };
 }
