@@ -11,6 +11,7 @@ use Moo;
 use App::Janet::LayoutReader;
 use App::Janet::Page;
 use App::Janet::Post;
+use App::Janet::StaticFile;
 
 has 'config' => (
     is => 'rw'
@@ -42,6 +43,11 @@ has 'posts' => (
 );
 
 has 'pages' => (
+    is => 'rw',
+    default => sub { [] }
+);
+
+has 'static_files' => (
     is => 'rw',
     default => sub { [] }
 );
@@ -120,6 +126,11 @@ sub read_directories {
         elsif (has_yaml_header($f_abs)) {
             my $page = App::Janet::Page->new(site => $self, name => $_);
             push @{$self->pages}, $page;
+        }
+        else {
+            push @{$self->static_files},
+                App::Janet::StaticFile->new(site => $self,
+                    base => $self->source, dir => $dir, name => $_);
         }
     };
 
