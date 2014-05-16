@@ -207,8 +207,8 @@ sub site_payload {
 sub each_site_file {
     my ($self) = @_;
 
-    # FIXME: static_files, documents
-    return [ @{$self->posts}, @{$self->pages} ];
+    # FIXME: documents
+    return [ @{$self->posts}, @{$self->pages}, @{$self->static_files} ];
 }
 
 sub has_yaml_header {
