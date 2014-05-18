@@ -157,8 +157,10 @@ sub read_content {
 sub get_entries {
     my ($self, $dir, $subdir) = @_;
 
-    # FIXME: '.' -> $source
-    my $base = catfile('.', $dir, $subdir);
+    my $base = catfile($self->source, $dir, $subdir);   
+
+    return [] if !-e $base;
+
     my @entries = ();
 
     find({
