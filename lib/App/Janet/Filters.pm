@@ -13,6 +13,10 @@ sub date_to_string {
     return $date->strftime("%d %b %Y");
 }
 
-Template::Liquid::register_filter(qw(date_to_string));
+sub xml_escape {
+    # TODO
+}
+
+Template::Liquid::register_filter(qw(date_to_string xml_escape));
 
 1;
