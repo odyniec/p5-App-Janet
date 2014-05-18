@@ -41,7 +41,7 @@ sub mtime {
 sub modified {
     my ($self) = @_;
 
-    return $mtimes{$self->path} != $self->mtime;
+    return ($mtimes{$self->path} || 0) != $self->mtime;
 }
 
 sub write {
