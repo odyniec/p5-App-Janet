@@ -10,7 +10,8 @@ my %DEFAULTS = (
     destination => catdir(getcwd, '_site'),
     layouts     => '_layouts',
 
-    permalink   => 'date'
+    permalink   => 'date',
+    baseurl     => ''
 );
 
 sub new {
