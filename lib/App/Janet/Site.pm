@@ -21,6 +21,7 @@ has 'source' => ( is => 'rw' );
 has 'dest' => ( is => 'rw' );
 
 has 'permalink_style' => ( is => 'rw' );
+has 'baseurl' => ( is => 'rw' );
 
 has 'converters' => (
     is => 'rw',
