@@ -35,7 +35,8 @@ sub render_all_layouts {
     my ($self, $layouts, $payload, $info) = @_;
 
     my $layout = $layouts->{$self->data->{'layout'}};
-    my %used = ( $layout->name => 1 );
+    my %used = ();
+    $used{$layout->name} = 1 if $layout;
 
     while ($layout) {
         my $payload = merge $payload,
