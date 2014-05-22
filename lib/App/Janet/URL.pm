@@ -1,5 +1,8 @@
 package App::Janet::URL;
 
+use strict;
+use warnings;
+
 use URI::Escape;
 
 sub new {

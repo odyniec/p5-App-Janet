@@ -1,5 +1,8 @@
 package App::Janet::Layout;
 
+use strict;
+use warnings;
+
 use Moo;
 
 with 'App::Janet::Convertible';

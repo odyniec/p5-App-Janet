@@ -1,5 +1,8 @@
 package App::Janet::Convertible;
 
+use strict;
+use warnings;
+
 use File::Basename;
 use File::Path qw(make_path);
 use File::Spec::Functions;

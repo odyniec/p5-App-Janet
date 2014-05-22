@@ -1,5 +1,8 @@
 package App::Janet::Configuration;
 
+use strict;
+use warnings;
+
 use Cwd;
 use File::Spec::Functions;
 use Hash::Merge::Simple qw(merge);

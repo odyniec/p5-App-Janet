@@ -1,5 +1,8 @@
 package App::Janet::LayoutReader;
 
+use strict;
+use warnings;
+
 use Cwd;
 use File::Find;
 use File::Spec;

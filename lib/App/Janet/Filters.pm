@@ -1,5 +1,8 @@
 package App::Janet::Filters;
 
+use strict;
+use warnings;
+
 use POSIX qw(strftime);
 use Template::Liquid;
 use Time::Piece;
