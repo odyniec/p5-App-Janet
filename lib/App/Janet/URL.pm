@@ -26,7 +26,7 @@ sub generate_url {
 
     my $result = $self->{_template};
 
-    while (($name, $value) = each %{$self->{_placeholders}}) {
+    while (my ($name, $value) = each %{$self->{_placeholders}}) {
         $value = __PACKAGE__->escape_path($value);
         $result =~ s/:$name/$value/g;
     }
