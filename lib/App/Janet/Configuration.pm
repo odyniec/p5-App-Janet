@@ -54,11 +54,10 @@ sub config_files {
 
     my $config_files = $override->{'config'};
 
-    if ($config_files !~ /\S/) {
+    if (defined($config_files) && $config_files !~ /\S/) {
         $config_files = catfile($self->source(), '_config.yml');
+        $config_files = [ $config_files ] if ref($config_files) ne 'ARRAY';
     }
-
-    $config_files = [ $config_files ] if ref($config_files) ne 'ARRAY';
 
     return $config_files;
 }
