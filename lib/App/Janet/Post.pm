@@ -47,7 +47,7 @@ sub EXCERPT_ATTRIBUTES_FOR_LIQUID {
 
     # FIXME
     #qw( title url dir date id categories next previous tags path );
-    qw( title url date );
+    qw( title url date previous next );
 }
 
 sub ATTRIBUTES_FOR_LIQUID {
