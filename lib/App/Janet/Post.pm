@@ -168,4 +168,28 @@ sub destination {
     return $path;
 }
 
+sub previous {
+    my ($self) = @_;
+
+    for (my $pos = 0; $pos < scalar @{$self->site->posts} - 1; $pos++) {
+        if (@{$self->site->posts}[$pos+1] == $self) {
+            return @{$self->site->posts}[$pos];
+        }
+    }
+
+    return;
+}
+
+sub next {
+    my ($self) = @_;
+
+    for (my $pos = 1; $pos < scalar @{$self->site->posts}; $pos++) {
+        if (@{$self->site->posts}[$pos-1] == $self) {
+            return @{$self->site->posts}[$pos];
+        }
+    }
+
+    return;
+}
+
 1;
