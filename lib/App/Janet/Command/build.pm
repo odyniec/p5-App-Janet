@@ -24,7 +24,7 @@ sub process {
 
     my $config = $class->configuration_from_options($options);
 
-    $site = App::Janet::Site->new(%$config);
+    $site = App::Janet::Site->new(config => $config);
 
     $class->build($site, $options);
 }

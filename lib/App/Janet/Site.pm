@@ -54,13 +54,11 @@ has 'static_files' => (
 );
 
 sub BUILD {
-    my ($self, $config) = @_;
+    my ($self) = @_;
 
-    $self->config($config);
-
-    $self->source(rel2abs($config->{'source'}));
-    $self->dest(rel2abs($config->{'destination'}));
-    $self->permalink_style($config->{'permalink'});
+    $self->source(rel2abs($self->config->{'source'}));
+    $self->dest(rel2abs($self->config->{'destination'}));
+    $self->permalink_style($self->config->{'permalink'});
 
     $self->setup();
 
