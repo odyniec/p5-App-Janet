@@ -12,6 +12,7 @@ use Template::Liquid;
 use YAML;
 
 use App::Janet::Filters;
+use App::Janet::Tag::Gist;
 use App::Janet::Tag::Highlight;
 use App::Janet::Tag::Include;
 
