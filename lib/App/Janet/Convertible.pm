@@ -13,6 +13,7 @@ use YAML;
 
 use App::Janet::Filters;
 use App::Janet::Tag::Highlight;
+use App::Janet::Tag::Include;
 
 sub read_yaml {
     my ($self, $base, $name, $opts) = @_;
