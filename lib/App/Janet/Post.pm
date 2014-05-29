@@ -164,7 +164,7 @@ sub destination {
 
     my $path = App::Janet::sanitized_path($dest,
         App::Janet::URL->unescape_path($self->url));
-    $path = catfile($path, "index.html") if $path !~ /\.html$/;
+    $path = File::Spec->catfile($path, "index.html") if $path !~ /\.html$/;
     return $path;
 }
 
