@@ -3,6 +3,7 @@ package App::Janet::Post;
 use strict;
 use warnings;
 
+use File::Spec;
 use Hash::Merge::Simple qw(merge);
 use Moo;
 use POSIX qw(strftime);
