@@ -5,8 +5,11 @@ use warnings;
 
 use Getopt::Long qw(GetOptionsFromArray);
 use HTTP::Server::PSGI;
+use Moo;
 use Plack::Builder;
 use URI;
+
+extends 'App::Janet::Command';
 
 my %options = (
     port => undef,
