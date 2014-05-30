@@ -11,20 +11,19 @@ use URI;
 
 extends 'App::Janet::Command';
 
-my %options = (
-    port => undef,
-    host => undef,
-);
-
 sub process {
-    GetOptionsFromArray(\@_,
-        'port' => \$options{port},
-        'host' => \$options{host}
+    my ($class, $options, @args) = @_;
+
+    GetOptionsFromArray(\@args,
+        'port=i' => \$options->{port},
+        'host=s' => \$options->{host}
     );
 
+    my $config = $class->configuration_from_options($options);
+
     my $server = HTTP::Server::PSGI->new(
-        host => $options{host},
-        port => $options{port},
+        host => $config->{host},
+        port => $config->{port},
         timeout => 120,
     );
 
