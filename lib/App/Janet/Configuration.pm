@@ -20,6 +20,11 @@ my %DEFAULTS = (
 sub new {
     my ($class, $config) = @_;
 
+    # Exclude undefined options
+    $config = {
+        map { ($_ => $config->{$_}) x !!defined $config->{$_} } keys %$config
+    } if %$config;
+
     $config = merge { %DEFAULTS }, $config || {};
 
     return bless $config, $class;
