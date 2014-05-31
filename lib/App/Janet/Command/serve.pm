@@ -15,8 +15,9 @@ sub process {
     my ($class, $options, @args) = @_;
 
     GetOptionsFromArray(\@args,
-        'port=i' => \$options->{port},
-        'host=s' => \$options->{host}
+        'port=i'    => \$options->{port},
+        'host=s'    => \$options->{host},
+        'baseurl=s' => \$options->{baseurl}
     );
 
     my $config = $class->configuration_from_options($options);
