@@ -96,7 +96,11 @@ sub process {
 }
 
 sub permalink {
-    # TODO: Return permalink if defined in post data
+    my ($self) = @_;
+
+    if ($self->data && exists $self->data->{'permalink'}) {
+        return $self->data->{'permalink'};
+    }
 }
 
 sub template {
