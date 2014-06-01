@@ -129,7 +129,7 @@ sub url {
     $self->{_url} ||= App::Janet::URL->new(
         template => $self->template,
         placeholders => $self->url_placeholders,
-        permalink => $self->permalink
+        permalink => $self->permalink || ''
     )->to_s;
 }
 
