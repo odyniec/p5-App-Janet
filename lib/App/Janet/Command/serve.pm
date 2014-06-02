@@ -36,9 +36,9 @@ sub process {
                 my $env = shift;
 
                 my $path_uri = URI->new($env->{'PATH_INFO'});
-                if ($path_uri->path eq '/') {
-                    # If path is "/", serve index.html
-                    $path_uri->path('/index.html');
+                if ($path_uri->path =~ m{/$}) {
+                    # If path ends with "/", serve index.html
+                    $path_uri->path($path_uri->path . 'index.html');
                 }
                 $env->{'PATH_INFO'} = $path_uri->as_string;
                 
@@ -46,8 +46,10 @@ sub process {
             }
         };
         
+        my $path_prefix = quotemeta($config->{baseurl} || '');
+
         enable "Plack::Middleware::Static",
-            path => '/',
+            path => sub { s/^$path_prefix// },
             root => '_site';
     };
 
