@@ -58,7 +58,7 @@ sub url {
     $self->{_url} ||= App::Janet::URL->new(
         template => $self->template,
         placeholders => $self->url_placeholders,
-        permalink => $self->permalink
+        permalink => $self->permalink || ''
     )->to_s;
 }
 
@@ -89,6 +89,12 @@ sub destination {
         App::Janet::URL->unescape_path($self->url));
     $path = catfile($path, "index.html") if $path !~ /\.html$/;
     return $path;
+}
+
+sub html {
+    my ($self) = @_;
+
+    return $self->output_ext eq '.html';
 }
 
 1;
