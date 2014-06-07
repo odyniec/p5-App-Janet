@@ -123,7 +123,7 @@ sub read_directories {
                 unless $self->dest =~ qr( ^ $f_abs /? $ )x;
         }
         elsif (has_yaml_header($f_abs)) {
-            my $page = App::Janet::Page->new(site => $self, name => $_);
+            my $page = App::Janet::Page->new($self, $self->source, $dir, $_);
             push @{$self->pages}, $page;
         }
         else {
@@ -148,8 +148,9 @@ sub read_content {
     my ($self, $dir, $magic_dir, $class) = @_;
 
     return [
-        map { ('App::Janet::' . $class)->new(site => $self, name => $_) }
-            @{$self->get_entries($dir, $magic_dir)}
+        map {
+            ('App::Janet::' . $class)->new($self, $self->source, $dir, $_)
+        } @{$self->get_entries($dir, $magic_dir)}
     ];
 }
 

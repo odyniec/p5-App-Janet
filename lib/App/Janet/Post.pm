@@ -15,6 +15,8 @@ with 'App::Janet::Convertible';
 
 my $MATCHER = qr/^(.+\/)*(\d+-\d+-\d+)-(.*)(\.[^.]+)$/;
 
+has 'dir' => ( is => 'rw' );
+
 has 'name' => (
     is => 'ro'
 );
@@ -59,6 +61,18 @@ sub ATTRIBUTES_FOR_LIQUID {
     ( $self->EXCERPT_ATTRIBUTES_FOR_LIQUID, qw( content ) );
 }
 
+sub BUILDARGS {
+    my ($class, $site, $source, $dir, $name) = @_;
+
+    my $base = containing_dir($source, $dir);
+
+    return {
+        'site'  => $site,
+        'base'  => $base,
+        'name'  => $name
+    };
+}
+
 sub BUILD {
     my ($self) = @_;
 
@@ -71,6 +85,12 @@ sub BUILD {
     }
 
     return $self;
+}
+
+sub containing_dir {
+    my ($source, $dir) = @_;
+
+    return File::Spec->catfile($source, $dir, '_posts');
 }
 
 sub title {

@@ -25,6 +25,17 @@ sub ATTRIBUTES_FOR_LIQUID {
     qw( content name url );
 }
 
+sub BUILDARGS {
+    my ($class, $site, $source, $dir, $name) = @_;
+
+    return {
+        'site'  => $site,
+        'base'  => $source,
+        'dir'   => $dir,
+        'name'  => $name
+    };
+}
+
 sub BUILD {
     my ($self) = @_;
 
