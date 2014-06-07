@@ -16,33 +16,13 @@ with 'App::Janet::Convertible';
 my $MATCHER = qr/^(.+\/)*(\d+-\d+-\d+)-(.*)(\.[^.]+)$/;
 
 has 'dir' => ( is => 'rw' );
-
-has 'name' => (
-    is => 'ro'
-);
-
-has 'site' => (
-    is => 'rw'
-);
-
-has 'data' => (
-    is => 'rw'
-);
-
-has 'content' => (
-    is => 'rw'
-);
-
-has 'output' => (
-    is => 'rw'
-);
-
-has 'ext' => (
-    is => 'rw'
-);
-
+has 'name' => ( is => 'ro' );
+has 'site' => ( is => 'rw' );
+has 'data' => ( is => 'rw' );
+has 'content' => ( is => 'rw' );
+has 'output' => ( is => 'rw' );
+has 'ext' => ( is => 'rw' );
 has 'date' => ( is => 'rw' );
-
 has 'slug' => ( is => 'rw' );
 
 sub EXCERPT_ATTRIBUTES_FOR_LIQUID {
