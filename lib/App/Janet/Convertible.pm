@@ -101,7 +101,10 @@ sub converter {
 sub to_liquid {
     my ($self, $attrs) = @_;
 
-    return { map { $_ => $self->$_ } $attrs || $self->ATTRIBUTES_FOR_LIQUID };
+    return {
+        map { $_ => $self->$_ || '' }
+            defined $attrs ? @$attrs : $self->ATTRIBUTES_FOR_LIQUID
+    };
 }
 
 sub render_liquid {
