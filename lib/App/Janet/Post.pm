@@ -16,6 +16,7 @@ with 'App::Janet::Convertible';
 my $MATCHER = qr/^(.+\/)*(\d+-\d+-\d+)-(.*)(\.[^.]+)$/;
 
 has 'dir' => ( is => 'rw' );
+has 'base' => ( is => 'rw' );
 has 'name' => ( is => 'ro' );
 has 'site' => ( is => 'rw' );
 has 'data' => ( is => 'rw' );
