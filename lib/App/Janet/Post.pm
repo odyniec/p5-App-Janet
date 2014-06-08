@@ -44,7 +44,7 @@ sub ATTRIBUTES_FOR_LIQUID {
 sub BUILDARGS {
     my ($class, $site, $source, $dir, $name) = @_;
 
-    my $base = containing_dir($source, $dir);
+    my $base = $class->containing_dir($source, $dir);
 
     return {
         'site'  => $site,
@@ -68,7 +68,7 @@ sub BUILD {
 }
 
 sub containing_dir {
-    my ($source, $dir) = @_;
+    my ($class, $source, $dir) = @_;
 
     return File::Spec->catfile($source, $dir, '_posts');
 }
