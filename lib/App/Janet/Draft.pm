@@ -11,6 +11,12 @@ extends 'App::Janet::Post';
 
 my $MATCHER = qr/^(.*)(\.[^.]+)$/;
 
+sub valid {
+    my ($class, $name) = @_;
+
+    return $name =~ $MATCHER;
+}
+
 sub containing_dir {
     my ($class, $source, $dir) = @_;
 
