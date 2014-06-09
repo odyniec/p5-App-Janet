@@ -6,6 +6,8 @@ use warnings;
 use Moo;
 use Text::Markdown qw(markdown);
 
+extends 'App::Janet::Converter';
+
 sub matches { 1 }
 
 sub output_ext {
