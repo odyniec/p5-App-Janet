@@ -23,6 +23,12 @@ sub containing_dir {
     return File::Spec->catfile($source, $dir, '_drafts');
 }
 
+sub relative_path {
+    my ($self) = @_;
+
+    return File::Spec->catfile($self->dir, '_drafts', $self->name);
+}
+
 sub process {
     my ($self) = @_;
 
