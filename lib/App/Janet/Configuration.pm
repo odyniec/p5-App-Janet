@@ -18,6 +18,9 @@ my %DEFAULTS = (
 
     port        => 4000,
     host        => '0.0.0.0',
+
+    markdown_ext    => 'markdown,mkdown,mkdn,mkd,md',
+    textile_ext     => 'textile',
 );
 
 sub new {
