@@ -154,6 +154,17 @@ sub read_content {
     ];
 }
 
+sub read_data {
+    my ($self, $dir) = @_;
+
+    my $base = catfile($self->source, $dir);
+    # read_data_to
+}
+
+sub read_data_to {
+    
+}
+
 sub get_entries {
     my ($self, $dir, $subdir) = @_;
 
