@@ -93,6 +93,25 @@ sub reset {
     my ($self) = @_;
 }
 
+sub collection_names {
+    my ($self) = @_;
+
+    if (defined $self->config->{'collections'}) {
+        if (ref($self->config->{'collections'}) eq 'HASH') {
+            return [ keys %{$self->config->{'collections'}} ];
+        }
+        elsif (ref($self->config->{'collections'}) eq 'ARRAY') {
+            return $self->config->{'collections'};
+        }
+        else {
+            # FIXME: Error
+        }
+    }
+    else {
+        return [];
+    }
+}
+
 sub read {
     my ($self) = @_;
 
