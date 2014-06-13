@@ -15,4 +15,10 @@ has 'collection' => ( is => 'rw' );
 
 has 'output' => ( is => 'rw' );
 
+sub extname {
+    my ($self) = @_;
+
+    return ($self->path =~ /(\.[^.]+)$/)[0];
+}
+
 1;
