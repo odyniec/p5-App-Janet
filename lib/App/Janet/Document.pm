@@ -21,4 +21,10 @@ sub extname {
     return ($self->path =~ /(\.[^.]+)$/)[0];
 }
 
+sub yaml_file {
+    my ($self) = @_;
+
+    return scalar grep { $self->extname eq $_ } qw( .yaml .yml );
+}
+
 1;
